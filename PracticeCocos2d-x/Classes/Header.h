@@ -15,6 +15,7 @@ using namespace rapidjson;
 USING_NS_CC;
 
 static const string PATH_ROOT = FileUtils::getInstance()->getDefaultResourceRootPath();
+static const string SPRITE_BACKGROUND_TOP = PATH_ROOT + "maps/bg_top.png";
 static const string SPRITE_BACKGROUND_BOT = PATH_ROOT + "maps/bg_water_2.png";
 
 static const float SCROLLING_BACKGROUND_SPEED = 5;

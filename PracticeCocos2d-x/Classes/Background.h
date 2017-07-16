@@ -11,14 +11,12 @@ class Background : public Layer{
 public:
     CREATE_FUNC(Background);
 
-    Scene* createScene();
     bool init() override;
     void update(float) override;
 
 private:
     Sprite* _top;
-    Sprite* _bot;
-    Sprite* _bot1;
+    Sprite* _bot[2];
 
 };
 
