@@ -1,7 +1,6 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
-#include "Background.h"
 #include "Target.h"
 
 using namespace std;
@@ -16,7 +15,9 @@ public:
 private:
     Sprite* _bgTop;
 	Sprite* _bgBot;
+	Sprite* _crosshair;
 	Target* _target;
+
     Vector<Sprite*> _targets;
 };
 

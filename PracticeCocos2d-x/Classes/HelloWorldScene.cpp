@@ -18,6 +18,11 @@ bool HelloWorld::init() {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
 
+    _crosshair = Sprite::create(SPRITE_CROSSHAIR_LARGE);
+    _crosshair->setScale(0.4);
+    _crosshair->setPosition(visibleSize/2);
+    this->addChild(_crosshair,5);
+
 	_bgTop = Sprite::create(SPRITE_BACKGROUND_TOP);
 	_bgTop->setAnchorPoint(Vec2(0, 0));
 	_bgTop->setPosition(0, 0);
@@ -30,6 +35,14 @@ bool HelloWorld::init() {
 
 	_target = Target::create();
 	this->addChild(_target, 1);
+
+    auto listenerMouse = EventListenerMouse::create();
+    listenerMouse->onMouseMove = [&](EventMouse* e){
+        auto x = e->getCursorX();
+        auto y = e->getCursorY();
+        _crosshair->setPosition(x,y);
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerMouse,this);
 
 	return true;
 }

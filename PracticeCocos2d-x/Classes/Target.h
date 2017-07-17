@@ -14,9 +14,9 @@ public:
 	void update(float) override;
 
 private:
-	bool isOutline(Sprite*);
 	long long getCurrentTime();
-	Vector<Sprite*> sprites;
+
+	Vector<Sprite*> _sprites;
 	long long _t0;
 };
 

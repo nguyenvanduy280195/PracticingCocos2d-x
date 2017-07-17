@@ -17,8 +17,8 @@ util::JSONParser::JSONParser(string filename) {
 Vec2 util::JSONParser::getPosition(string name) {
 	for (int i = 0; i < _sizeArray; i++) {
 		if (_document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_NAME].GetString() == name) {
-			int x = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_X].GetInt64();
-			int y = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_Y].GetInt64();
+			int x = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_X].GetInt();
+			int y = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_Y].GetInt();
 			return Vec2(x, y);
 		}
 	}

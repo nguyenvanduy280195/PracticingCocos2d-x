@@ -27,6 +27,9 @@ static const Vec2 DUCK_Y_POSI(636, 541);
 static const Size DUCK_B_SIZE(99, 95);
 static const Vec2 DUCK_B_POSI(636, 638);
 
+static const string SPRITE_CROSSHAIR_SMALL = "images/PNG/crosshair_small.png";
+static const string SPRITE_CROSSHAIR_LARGE = "images/PNG/crosshair_large.png";
+
 static const Size TARGET_SIZE(128, 128);
 static const Vec2 TARGET_POSI(404, 451);
 
