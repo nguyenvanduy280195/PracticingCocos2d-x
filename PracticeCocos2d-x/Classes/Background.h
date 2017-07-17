@@ -15,9 +15,8 @@ public:
     void update(float) override;
 
 private:
-    Sprite* _top;
-    Sprite* _bot[2];
-
+	Sprite* _top;
+	Sprite* _bot;
 };
 
 

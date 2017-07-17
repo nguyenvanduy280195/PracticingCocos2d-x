@@ -3,57 +3,38 @@
 
 USING_NS_CC;
 
-AppDelegate::AppDelegate() {
+AppDelegate::AppDelegate() {}
 
-}
-
-AppDelegate::~AppDelegate() 
-{
-}
+AppDelegate::~AppDelegate() {}
 
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
-   // auto director = Director::getInstance();
-   // auto eglView = EGLView::getInstance();
-
-   // director->setOpenGLView(eglView);
-	
 	auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
-    if(!glview) {
-        glview = GLViewImpl::create("My Game");
-        director->setOpenGLView(glview);
-    }
-	
-    // turn on display FPS
-    //director->setDisplayStats(true);
+	auto glview = director->getOpenGLView();
+	if (!glview) {
+		glview = GLViewImpl::create("My Game");
+		director->setOpenGLView(glview);
+	}
+	//glview->setFrameSize(1280,960);
+	glview->setDesignResolutionSize(640, 480, ResolutionPolicy::EXACT_FIT);
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    //director->setAnimationInterval(1.0 / 60);
+	auto scene = HelloWorld::createScene();
+	director->runWithScene(scene);
 
-	glview->setDesignResolutionSize(480, 320, ResolutionPolicy::EXACT_FIT);
-
-    // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-
-    // run
-    director->runWithScene(scene);
-
-    return true;
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    Director::getInstance()->stopAnimation();
+	Director::getInstance()->stopAnimation();
 
-    // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	// if you use SimpleAudioEngine, it must be pause
+	// SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
-    Director::getInstance()->startAnimation();
+	Director::getInstance()->startAnimation();
 
-    // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+	// if you use SimpleAudioEngine, it must resume here
+	// SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }

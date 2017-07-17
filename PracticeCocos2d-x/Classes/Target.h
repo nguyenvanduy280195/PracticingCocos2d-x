@@ -7,9 +7,17 @@
 
 #include "Header.h"
 
-class Target : public Sprite{
+class Target : public Layer{
 public:
-    bool init() override;
+	CREATE_FUNC(Target);
+	bool init() override;
+	void update(float) override;
+
+private:
+	bool isOutline(Sprite*);
+	long long getCurrentTime();
+	Vector<Sprite*> sprites;
+	long long _t0;
 };
 
 

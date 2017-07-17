@@ -2,6 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "Background.h"
+#include "Target.h"
 
 using namespace std;
 
@@ -13,7 +14,9 @@ public:
 	virtual bool init();
 	CREATE_FUNC(HelloWorld);
 private:
-    Background* _background;
+    Sprite* _bgTop;
+	Sprite* _bgBot;
+	Target* _target;
     Vector<Sprite*> _targets;
 };
 

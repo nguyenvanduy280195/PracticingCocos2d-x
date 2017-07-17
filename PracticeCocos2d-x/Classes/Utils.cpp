@@ -4,16 +4,34 @@
 
 #include "Utils.h"
 
-Document Utils::xmlParse(string filename) {
-    auto fileUtils = FileUtils::getInstance();
-    string str = fileUtils->getDefaultResourceRootPath();
+util::JSONParser::JSONParser(string filename) {
+	auto fileUtils = FileUtils::getInstance();
+	ssize_t size;
+	auto buf = (char *)fileUtils->getFileData(PATH_ROOT + filename, "r", &size);
+	buf[size] = '\0';
+	_document.Parse(buf);
 
-    Document document;
-    ssize_t size;
+	_sizeArray = _document[TEXTURE_ALIAS][SUB_TEXTURE].Size();
+}
 
-    auto buf = (char *) fileUtils->getFileData(str + filename, "r", &size);
+Vec2 util::JSONParser::getPosition(string name) {
+	for (int i = 0; i < _sizeArray; i++) {
+		if (_document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_NAME].GetString() == name) {
+			int x = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_X].GetInt64();
+			int y = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_Y].GetInt64();
+			return Vec2(x, y);
+		}
+	}
+	return Vec2(-1, -1);
+}
 
-    document.Parse(buf);
-
-    return document;
+Size util::JSONParser::getSize(string name) {
+	for (int i = 0; i < _sizeArray; i++) {
+		if (_document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_NAME].GetString() == name) {
+			int width = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_WIDTH].GetInt();
+			int height = _document[TEXTURE_ALIAS][SUB_TEXTURE][i][ATT_HEIGHT].GetInt();
+			return Size(width, height);
+		}
+	}
+	return Size(-1, -1);
 }
