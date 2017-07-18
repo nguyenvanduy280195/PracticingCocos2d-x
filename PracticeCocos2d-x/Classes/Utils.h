@@ -8,17 +8,18 @@
 #include "Header.h"
 namespace util {
 
+	long long getCurrentTime();
 	//API JSON
-	class JSONParser {
-	public:
-		JSONParser(string);
-		Vec2 getPosition(string);
-		Size getSize(string);
-		
-	private:
-		rapidjson::Document _document;
-		int _sizeArray;
-	};
+	//class JSONParser {
+	//public:
+	//	JSONParser(string);
+	//	Vec2 getPosition(string);
+	//	Size getSize(string);
+	//	
+	//private:
+	//	rapidjson::Document _document;
+	//	int _sizeArray;
+	//};
 }
 
 #endif //MYGAME_UTILS_H

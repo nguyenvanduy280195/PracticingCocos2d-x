@@ -12,12 +12,8 @@ public:
 	CREATE_FUNC(Target);
 	bool init() override;
 	void update(float) override;
-
-private:
-	long long getCurrentTime();
-
-	Vector<Sprite*> _sprites;
-	long long _t0;
+	Sprite* _sprite;
+	int _isShooted = 0;
 };
 
 

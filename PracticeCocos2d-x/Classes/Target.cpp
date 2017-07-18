@@ -4,50 +4,46 @@
 
 #include "Target.h"
 
+Vec2 deltaMove() {
+	int speed = RandomHelper::random_int(0, 200);
+	int direct = (RandomHelper::random_int(0, 1) == 0) ? 1 : -1;
+	bool isX = RandomHelper::random_int(0, 1);
+	if (isX) {
+		return Vec2(direct*speed, 0);
+	}
+	return Vec2(0, direct*speed);
+}
+
 bool Target::init() {
-    if (!Layer::init()) {
-        return false;
-    }
+	if (!Layer::init()) {
+		return false;
+	}
+	_sprite = Sprite::create(SPRITESHEET_OBJECTS, Rect(TARGET_POSI, TARGET_SIZE));
 
-    _t0 = 0;
+	int x = RandomHelper::random_int(200, 600);
+	int y = RandomHelper::random_int(200, 400);
 
-    this->scheduleUpdate();
-    return true;
+	_sprite->setPosition(x, y);
+	_sprite->setScale(0.5);
+
+	auto move = MoveBy::create(2, deltaMove());
+	auto fade = FadeOut::create(3);
+	auto spawn = Spawn::createWithTwoActions(move, fade);
+	_sprite->runAction(spawn);
+
+	this->addChild(_sprite);
+	this->scheduleUpdate();
+	return true;
 }
 
 void Target::update(float dt) {
-    auto cur = getCurrentTime();
-    if (cur - _t0 > 1) {
-        _t0 = cur;
+	if (_isShooted == 1) {
+		_isShooted++;
+		_sprite->stopAllActions();
 
-        Sprite *sprite = Sprite::create(SPRITESHEET_OBJECTS, Rect(TARGET_POSI, TARGET_SIZE));
-
-        int x = RandomHelper::random_int(200, 600);
-        int y = RandomHelper::random_int(300, 500);
-
-        sprite->setPosition(x, y);
-        sprite->setScale(0.75);
-
-        auto move = MoveBy::create(3, Vec2(0, -y));
-        auto fade = FadeOut::create(3);
-        auto spawn = Spawn::createWithTwoActions(move, fade);
-        sprite->runAction(spawn);
-
-        this->addChild(sprite, 1);
-        _sprites.pushBack(sprite);
-    }
-
-    for (int i = 0; i < _sprites.size(); i++) {
-        if (_sprites.at(i)->getNumberOfRunningActions() == 0) {
-            _sprites.erase(i);
-        }
-    }
-
-}
-
-long long Target::getCurrentTime() {
-    time_t t = time(0);
-    tm *now = localtime(&t);
-
-    return now->tm_hour * 3600 + now->tm_min * 60 + now->tm_sec;
+		auto in = FadeIn::create(0.1f);
+		auto out = FadeOut::create(1);
+		auto seq = Sequence::createWithTwoActions(in, out);
+		_sprite->runAction(seq);
+	}
 }
