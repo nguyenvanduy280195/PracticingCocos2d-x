@@ -1,5 +1,13 @@
 #include "HelloWorldScene.h"
 
+long long getCurrentTime() {
+    time_t t = time(0);
+    tm *now = localtime(&t);
+
+    return now->tm_hour * 3600 + now->tm_min * 60 + now->tm_sec;
+}
+
+
 Scene* HelloWorld::createScene() {
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
@@ -98,7 +106,7 @@ bool HelloWorld::init() {
 void HelloWorld::update(float dt) {
 	//target is created every r seconds
 	auto r = RandomHelper::random_real(0.0f, 5.0f);
-	auto now = util::getCurrentTime();
+	auto now = getCurrentTime();
 	if (float(now - _t0) > r) {
 		_t0 = now;
 		auto target = Target::create();
@@ -108,6 +116,14 @@ void HelloWorld::update(float dt) {
 	//target is removed when target runs complete action
 	for (int i = 0; i < _targets.size(); i++) {
 		if (_targets.at(i)->_sprite->getNumberOfRunningActions() == 0) {
+            if(!_targets.at(i)->_isShooted){//game over
+                Director::getInstance()->stopAnimation();
+                this->stopAllActions();
+                auto gameOver = Sprite::create(SPRITESHEET_HUD, Rect(0,0,348,71));
+                gameOver->setPosition(640/2,480/2);
+                this->addChild(gameOver,10);
+            }
+
 			this->removeChild(_targets.at(i));
 			_targets.erase(i);
 		}

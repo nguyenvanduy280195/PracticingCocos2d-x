@@ -36,9 +36,3 @@
 //	return Size(-1, -1);
 //}
 
-long long util::getCurrentTime() {
-	time_t t = time(0);
-	tm *now = localtime(&t);
-
-	return now->tm_hour * 3600 + now->tm_min * 60 + now->tm_sec;
-}

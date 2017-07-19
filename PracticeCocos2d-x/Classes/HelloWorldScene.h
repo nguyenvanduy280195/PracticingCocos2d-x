@@ -2,7 +2,6 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "Target.h"
-#include "Utils.h"
 
 using namespace std;
 
